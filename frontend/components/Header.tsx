@@ -1,32 +1,65 @@
-import * as React from 'react'
 import Link from 'next/link'
-import Head from 'next/head'
+import styled from 'styled-components'
+import { Nav } from './Nav'
 
-interface IProps {
-  title?: string
-}
-
-const Header: React.SFC<IProps> = ({ title }) => {
+const Header: React.SFC = () => {
   return (
-    <>
-      <Head>
-        <title>{title}</title>
-        <meta charSet="utf-8" />
-        <meta name="viewport" content="initial-scale=1.0, width=device-width" />
-      </Head>
-      <header>
-        <nav>
+    <StyledHeader>
+      <div className="bar">
+        <Logo>
           <Link href="/">
-            <a>Home</a>
-          </Link>{' '}
-          |{' '}
-          <Link href="/about">
-            <a>About</a>
+            <a>Adv. Next</a>
           </Link>
-        </nav>
-      </header>
-    </>
+        </Logo>
+        <Nav />
+      </div>
+      <div className="sub-bar">
+        <p>Search</p>
+      </div>
+      <div>Cart</div>
+    </StyledHeader>
   )
 }
+
+const StyledHeader = styled.header`
+  .bar {
+    border-bottom: 10px solid ${props => props.theme.black};
+    display: grid;
+    grid-template-columns: auto 1fr;
+    justify-content: space-between;
+    align-items: stretch;
+
+    @media (max-width: ${props => props.theme.containerWidth}) {
+      grid-template-columns: 1fr;
+      justify-content: center;
+    }
+  }
+  .sub-bar {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    border-bottom: 1px solid ${props => props.theme.lightGrey};
+  }
+`
+
+const Logo = styled.h1`
+  font-size: 4rem;
+  margin-left: 2rem;
+  position: relative;
+  z-index: 2;
+  transform: skew(-7deg);
+
+  a {
+    padding: 0.5rem 1rem;
+    background: ${props => props.theme.red};
+    color: white;
+    text-transform: uppercase;
+    text-decoration: none;
+  }
+
+  @media (max-width: ${props => props.theme.containerWidth}) {
+    margin: 0;
+    text-align: center;
+  }
+`
 
 export { Header }

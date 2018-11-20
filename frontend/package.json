@@ -9,14 +9,25 @@
   },
   "dependencies": {
     "@zeit/next-typescript": "^1.1.1",
+    "apollo-boost": "^0.1.21",
+    "apollo-client": "^2.4.6",
+    "babel-plugin-styled-components": "^1.8.0",
+    "lodash.debounce": "^4.0.8",
     "next": "^7.0.2",
+    "next-with-apollo": "^3.3.0",
+    "nprogress": "^0.2.0",
     "react": "^16.7.0-alpha.2",
-    "react-dom": "^16.7.0-alpha.2"
+    "react-apollo": "^2.3.1",
+    "react-dom": "^16.7.0-alpha.2",
+    "styled-components": "^4.1.1"
   },
   "devDependencies": {
+    "@types/lodash.debounce": "^4.0.4",
     "@types/next": "^7.0.1",
+    "@types/nprogress": "0.0.29",
     "@types/react": "^16.7.3",
     "@types/react-dom": "^16.0.9",
+    "@types/styled-components": "^4.1.0",
     "typescript": "3.1.1"
   },
   "license": "ISC"
