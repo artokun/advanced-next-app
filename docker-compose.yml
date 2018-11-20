@@ -35,8 +35,8 @@ services:
     build:
       dockerfile: Dockerfile
       context: ./frontend
-    # depends_on:
-    #   - backend
+    depends_on:
+      - backend
     ports:
       - '3000:3000'
       - '35729:35729'
@@ -52,21 +52,28 @@ services:
     environment:
       - CHOKIDAR_USEPOLLING=true
       - NODE_ENV=development
-  # backend:
-  #   restart: always
-  #   build:
-  #     dockerfile: Dockerfile
-  #     context: ./backend
-  #   depends_on:
-  #     - prisma
-  #   ports:
-  #     - '4444:4444'
-  #   volumes:
-  #     - /usr/app/node_modules
-  #     - ./backend:/usr/app
-  #   environment:
-  #     - DEV_DB_HOST=postgres
-  #     - DEV_DB_PORT=5432
-  #     - DEV_DB_NAME=postgres_development_docker
+  backend:
+    restart: always
+    build:
+      dockerfile: Dockerfile
+      context: ./backend
+    depends_on:
+      - prisma
+    ports:
+      - '4444:4444'
+    volumes:
+      - ./backend:/opt/app:delegated
+      - ./backend/package.json:/opt/package.json
+      - ./backend/package-lock.json:/opt/package-lock.json
+      - /opt/app/node_modules
+      - notusedeither:/opt/app/node_modules
+    environment:
+      - FRONTEND_URL="http://localhost:3000"
+      - PRISMA_ENDPOINT="http://localhost:4466/backend/dev"
+      - PRISMA_SECRET="prisma_secret"
+      - APP_SECRET="app_secret"
+      - STRIPE_SECRET="stripe_secret"
+      - PORT=4444
 volumes:
   notused:
+  notusedeither:
