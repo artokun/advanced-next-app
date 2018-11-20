@@ -5,7 +5,6 @@ ENV NODE_ENV $NODE_ENV
 
 ARG PORT=4444
 ENV PORT $PORT
-EXPOSE $PORT 9229 9230
 
 RUN npm i npm@latest -g
 
@@ -14,7 +13,7 @@ COPY package.json package-lock.json* ./
 RUN npm install --no-optional && npm cache clean --force
 ENV PATH /opt/node_modules/.bin:$PATH
 
-WORKDIR /opt/app
-COPY . /opt/app
+WORKDIR /opt
+COPY . /opt
 
 CMD ["npm", "run", "debug"]

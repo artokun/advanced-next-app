@@ -14,7 +14,7 @@ COPY package.json package-lock.json* ./
 RUN npm install --no-optional && npm cache clean --force
 ENV PATH /opt/node_modules/.bin:$PATH
 
-WORKDIR /opt/app
-COPY . /opt/app
+WORKDIR /opt
+COPY . /opt
 
 CMD ["npm", "run", "dev"]

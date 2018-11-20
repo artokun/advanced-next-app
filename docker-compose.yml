@@ -1,4 +1,4 @@
-version: '3'
+version: '2.3'
 services:
   prisma:
     image: prismagraphql/prisma:1.20
@@ -42,14 +42,13 @@ services:
       - '9229:9229'
       - '9230:9230'
     volumes:
-      - ./frontend:/opt/app:delegated
+      - .:/opt/app:delegated
       - ./frontend/package.json:/opt/package.json
       - ./frontend/package-lock.json:/opt/package-lock.json
-      - /opt/app/node_modules
-      - notused:/opt/app/node_modules
+      - frontend:/opt/app/node_modules
     environment:
-      - CHOKIDAR_USEPOLLING=true
       - NODE_ENV=development
+      - CHOKIDAR_USEPOLLING=true
   backend:
     restart: always
     build:
@@ -60,19 +59,18 @@ services:
     ports:
       - '4444:4444'
     volumes:
-      - ./backend:/opt/app:delegated
+      - .:/opt/app:delegated
       - ./backend/package.json:/opt/package.json
       - ./backend/package-lock.json:/opt/package-lock.json
-      - /opt/app/node_modules
-      - notusedeither:/opt/app/node_modules
+      - backend:/opt/app/node_modules
     environment:
+      - NODE_ENV=development
       - FRONTEND_URL="http://localhost:3000"
-      # - PRISMA_ENDPOINT="http://localhost:4466/backend/dev"
-      - PRISMA_ENDPOINT="http://prisma"
+      - PRISMA_ENDPOINT="http://localhost:4466/backend/dev"
       - PRISMA_SECRET="prisma_secret"
       - APP_SECRET="app_secret"
       - STRIPE_SECRET="stripe_secret"
       - PORT=4444
 volumes:
-  notused:
-  notusedeither:
+  frontend:
+  backend:
