@@ -30,16 +30,17 @@ const GlobalStyle = createGlobalStyle`
     box-sizing: inherit;
   }
   body {
-    margin: 0;
     padding: 0;
+    margin: 0;
     font-size: 1.5rem;
     line-height: 2;
     font-family: 'radnika_next';
   }
   a {
     text-decoration: none;
-    color: ${theme.black}
+    color: ${theme.black};
   }
+  button {  font-family: 'radnika_next'; }
 `
 
 interface IProps {

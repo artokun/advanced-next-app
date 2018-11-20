@@ -1,5 +1,23 @@
 version: '3'
 services:
+  prisma:
+    image: prismagraphql/prisma:1.20
+    depends_on:
+      - postgres
+    restart: always
+    ports:
+      - '4466:4466'
+    environment:
+      PRISMA_CONFIG: |
+        port: 4466
+        databases:
+          default:
+            connector: postgres
+            host: postgres
+            port: 5432
+            user: postgres
+            password: postgres
+            migrations: true
   postgres:
     build:
       dockerfile: Dockerfile
@@ -13,15 +31,36 @@ services:
     volumes:
       - ./db/pgdata:/var/lib/postgresql/data
       - ./db:/docker-entrypoint-initdb.d
+  frontend:
+    build:
+      dockerfile: Dockerfile
+      context: ./frontend
+    # depends_on:
+    #   - backend
+    ports:
+      - '3000:3000'
+      - '35729:35729'
+      - '9009:9009'
+      - '9229:9229'
+      - '9230:9230'
+    volumes:
+      - ./frontend:/opt/app:delegated
+      - ./frontend/package.json:/opt/package.json
+      - ./frontend/package-lock.json:/opt/package-lock.json
+      - /opt/app/node_modules
+      - notused:/opt/app/node_modules
+    environment:
+      - CHOKIDAR_USEPOLLING=true
+      - NODE_ENV=development
   # backend:
   #   restart: always
   #   build:
   #     dockerfile: Dockerfile
   #     context: ./backend
   #   depends_on:
-  #     - postgres
+  #     - prisma
   #   ports:
-  #     - '8080:8080'
+  #     - '4444:4444'
   #   volumes:
   #     - /usr/app/node_modules
   #     - ./backend:/usr/app
@@ -29,18 +68,5 @@ services:
   #     - DEV_DB_HOST=postgres
   #     - DEV_DB_PORT=5432
   #     - DEV_DB_NAME=postgres_development_docker
-  frontend:
-    build:
-      dockerfile: Dockerfile
-      context: ./frontend
-    ports:
-      - '3000:3000'
-      - '35729:35729'
-      - '9009:9009'
-    # depends_on:
-    #   - api
-    volumes:
-      - /usr/app/node_modules
-      - ./frontend:/usr/app
-    environment:
-      - CHOKIDAR_USEPOLLING=true
+volumes:
+  notused:
