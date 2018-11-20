@@ -1,12 +1,12 @@
-type User {
-  id: ID!
-  name: String!
-}
-
 type Query {
-  hi: String
+  user(id: ID!): User
 }
 
 type Mutation {
-  hi: String
+  createUser(id: ID!): User
+}
+
+type User {
+  id: ID!
+  name: String
 }
