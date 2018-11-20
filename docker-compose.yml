@@ -35,8 +35,6 @@ services:
     build:
       dockerfile: Dockerfile
       context: ./frontend
-    depends_on:
-      - backend
     ports:
       - '3000:3000'
       - '35729:35729'
@@ -69,7 +67,8 @@ services:
       - notusedeither:/opt/app/node_modules
     environment:
       - FRONTEND_URL="http://localhost:3000"
-      - PRISMA_ENDPOINT="http://localhost:4466/backend/dev"
+      # - PRISMA_ENDPOINT="http://localhost:4466/backend/dev"
+      - PRISMA_ENDPOINT="http://prisma"
       - PRISMA_SECRET="prisma_secret"
       - APP_SECRET="app_secret"
       - STRIPE_SECRET="stripe_secret"

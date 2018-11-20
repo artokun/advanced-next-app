@@ -1,5 +1,7 @@
 export const Query = {
-  user: (parent, args, ctx) => {
-    throw new Error('Resolver not implemented')
+  async items(parent, args, ctx) {
+    const items = await ctx.prisma.items()
+
+    return items
   }
 }

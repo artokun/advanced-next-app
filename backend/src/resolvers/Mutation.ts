@@ -1,5 +1,7 @@
 export const Mutation = {
-  createItem(parent, args, ctx, info) {
-    throw new Error('Resolver not implemented')
+  createItem(parent, args, context) {
+    // TODO: Check if authed
+
+    return context.prisma.createItem({ data: { ...args } })
   }
 }
