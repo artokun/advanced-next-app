@@ -1,6 +1,7 @@
 export const Query = {
-  async items(parent, args, ctx) {
-    const items = await ctx.prisma.items()
+  items(parent, args, ctx) {
+    // const items = await ctx.prisma.items()
+    const items = [{ id: 1, title: 'tjos' }]
 
     return items
   }
