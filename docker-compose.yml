@@ -1,0 +1,46 @@
+version: '3'
+services:
+  postgres:
+    build:
+      dockerfile: Dockerfile
+      context: ./db
+    restart: always
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_MULTIPLE_DATABASES=postgres_development_docker,postgres_test_docker
+    ports:
+      - '54321:5432'
+    volumes:
+      - ./db/pgdata:/var/lib/postgresql/data
+      - ./db:/docker-entrypoint-initdb.d
+  # backend:
+  #   restart: always
+  #   build:
+  #     dockerfile: Dockerfile
+  #     context: ./backend
+  #   depends_on:
+  #     - postgres
+  #   ports:
+  #     - '8080:8080'
+  #   volumes:
+  #     - /usr/app/node_modules
+  #     - ./backend:/usr/app
+  #   environment:
+  #     - DEV_DB_HOST=postgres
+  #     - DEV_DB_PORT=5432
+  #     - DEV_DB_NAME=postgres_development_docker
+  frontend:
+    build:
+      dockerfile: Dockerfile
+      context: ./frontend
+    ports:
+      - '3000:3000'
+      - '35729:35729'
+      - '9009:9009'
+    # depends_on:
+    #   - api
+    volumes:
+      - /usr/app/node_modules
+      - ./web:/usr/app
+    environment:
+      - CHOKIDAR_USEPOLLING=true
