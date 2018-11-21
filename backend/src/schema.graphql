@@ -1,22 +1,18 @@
-scalar DateTime
+# type Query {}
 
-type Query {
-  items: [Item]!
-}
-
-type Mutation {
-  createItem(
-    title: String
-    description: String
-    price: Int
-    image: String
-    largeImage: String
-    createdAt: DateTime
-    updatedAt: DateTime
-  ): Item
-}
+# type Mutation {}
 
 type User {
   id: ID!
   name: String
+}
+
+type Item {
+  id: ID!
+  title: String!
+  description: String!
+  price: Int!
+  image: String
+  largeImage: String
+  # user: User!
 }

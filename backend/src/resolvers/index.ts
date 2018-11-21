@@ -1,12 +1,9 @@
 import { Resolvers } from '../generated/graphqlgen'
-import { Query } from './Query'
-import { Mutation } from './Mutation'
-import { Item } from './Item'
+
 import { User } from './User'
+import { Item } from './Item'
 
 export const resolvers: Resolvers = {
-  Query,
-  Mutation,
-  Item,
-  User
+  User,
+  Item
 }

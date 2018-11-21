@@ -3,8 +3,8 @@
   "version": "1.0.0",
   "description": "",
   "scripts": {
-    "start": "nodemon -e ts,graphql -x ts-node src/index.ts",
-    "debug": "nodemon -e ts,graphql -x ts-node src/index.ts --inspect",
+    "start": "nodemon -e ts,graphql,prisma -x ts-node src/index.ts",
+    "debug": "nodemon -e ts,graphql,prisma -x ts-node src/index.ts --inspect",
     "test": "jest",
     "generate": "graphqlgen",
     "deploy": "prisma deploy",

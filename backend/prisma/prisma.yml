@@ -6,7 +6,7 @@ seed:
 hooks:
   post-deploy:
     - prisma generate
-    # - graphql get-schema -p prisma
+    - npm run generate
 generate:
   - generator: typescript-client
-    output: ../src/generated/prisma-client/
+    output: ../src/generated/prisma-client

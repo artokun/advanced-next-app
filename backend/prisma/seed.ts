@@ -1,8 +1,8 @@
-import { prisma } from '../src/generated/prisma-client'
+import { prisma } from "../src/generated/prisma-client";
 
 async function main() {
   await prisma.createUser({
-    name: 'Alice',
-    email: 'alice@prisma.io',
-  })
+    name: "Alice",
+    email: "alice@prisma.io",
+  });
 }
