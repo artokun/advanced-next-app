@@ -16,7 +16,7 @@ export interface Exists {
 
 export interface Node {}
 
-export type FragmentableArray<T> = Promise<T[]> & Fragmentable;
+export type FragmentableArray<T> = Promise<Array<T>> & Fragmentable;
 
 export interface Fragmentable {
   $fragment<T>(fragment: string | DocumentNode): Promise<T>;
@@ -26,7 +26,7 @@ export interface Prisma {
   $exists: Exists;
   $graphql: <T = any>(
     query: string,
-    variables?: { [key: string]: any },
+    variables?: { [key: string]: any }
   ) => Promise<T>;
 
   /**
@@ -43,7 +43,7 @@ export interface Prisma {
       before?: String;
       first?: Int;
       last?: Int;
-    },
+    }
   ) => FragmentableArray<Item>;
   itemsConnection: (
     args?: {
@@ -54,7 +54,7 @@ export interface Prisma {
       before?: String;
       first?: Int;
       last?: Int;
-    },
+    }
   ) => ItemConnectionPromise;
   user: (where: UserWhereUniqueInput) => UserPromise;
   users: (
@@ -66,7 +66,7 @@ export interface Prisma {
       before?: String;
       first?: Int;
       last?: Int;
-    },
+    }
   ) => FragmentableArray<User>;
   usersConnection: (
     args?: {
@@ -77,7 +77,7 @@ export interface Prisma {
       before?: String;
       first?: Int;
       last?: Int;
-    },
+    }
   ) => UserConnectionPromise;
   node: (args: { id: ID_Output }) => Node;
 
@@ -87,33 +87,33 @@ export interface Prisma {
 
   createItem: (data: ItemCreateInput) => ItemPromise;
   updateItem: (
-    args: { data: ItemUpdateInput; where: ItemWhereUniqueInput },
+    args: { data: ItemUpdateInput; where: ItemWhereUniqueInput }
   ) => ItemPromise;
   updateManyItems: (
-    args: { data: ItemUpdateManyMutationInput; where?: ItemWhereInput },
+    args: { data: ItemUpdateManyMutationInput; where?: ItemWhereInput }
   ) => BatchPayloadPromise;
   upsertItem: (
     args: {
       where: ItemWhereUniqueInput;
       create: ItemCreateInput;
       update: ItemUpdateInput;
-    },
+    }
   ) => ItemPromise;
   deleteItem: (where: ItemWhereUniqueInput) => ItemPromise;
   deleteManyItems: (where?: ItemWhereInput) => BatchPayloadPromise;
   createUser: (data: UserCreateInput) => UserPromise;
   updateUser: (
-    args: { data: UserUpdateInput; where: UserWhereUniqueInput },
+    args: { data: UserUpdateInput; where: UserWhereUniqueInput }
   ) => UserPromise;
   updateManyUsers: (
-    args: { data: UserUpdateManyMutationInput; where?: UserWhereInput },
+    args: { data: UserUpdateManyMutationInput; where?: UserWhereInput }
   ) => BatchPayloadPromise;
   upsertUser: (
     args: {
       where: UserWhereUniqueInput;
       create: UserCreateInput;
       update: UserUpdateInput;
-    },
+    }
   ) => UserPromise;
   deleteUser: (where: UserWhereUniqueInput) => UserPromise;
   deleteManyUsers: (where?: UserWhereInput) => BatchPayloadPromise;
@@ -127,10 +127,10 @@ export interface Prisma {
 
 export interface Subscription {
   item: (
-    where?: ItemSubscriptionWhereInput,
+    where?: ItemSubscriptionWhereInput
   ) => ItemSubscriptionPayloadSubscription;
   user: (
-    where?: UserSubscriptionWhereInput,
+    where?: UserSubscriptionWhereInput
   ) => UserSubscriptionPayloadSubscription;
 }
 
@@ -246,6 +246,7 @@ export interface UserWhereInput {
 
 export type UserWhereUniqueInput = AtLeastOne<{
   id: ID_Input;
+  email?: String;
 }>;
 
 export interface ItemCreateInput {
@@ -695,7 +696,7 @@ export interface UserSubscriptionPayloadSubscription
 }
 
 /*
-The `Int` scalar type represents non-fractional signed whole numeric values. Int can represent values between -(2^31) and 2^31 - 1.
+The `Int` scalar type represents non-fractional signed whole numeric values. Int can represent values between -(2^31) and 2^31 - 1. 
 */
 export type Int = number;
 
@@ -734,12 +735,12 @@ export type String = string;
 export const models = [
   {
     name: "Item",
-    embedded: false,
+    embedded: false
   },
   {
     name: "User",
-    embedded: false,
-  },
+    embedded: false
+  }
 ];
 
 /**
@@ -749,6 +750,6 @@ export const models = [
 export const Prisma = makePrismaClientClass<ClientConstructor<Prisma>>({
   typeDefs,
   models,
-  endpoint: `${process.env.PRISMA_ENDPOINT}`,
+  endpoint: `${process.env["PRISMA_ENDPOINT"]}`
 });
 export const prisma = new Prisma();

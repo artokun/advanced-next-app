@@ -4,5 +4,5 @@
 import { ItemResolvers } from "../graphqlgen";
 
 export const Item: ItemResolvers.Type = {
-  ...ItemResolvers.defaultResolvers,
+  ...ItemResolvers.defaultResolvers
 };

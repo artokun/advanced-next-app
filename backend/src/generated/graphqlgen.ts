@@ -4,40 +4,100 @@ import { GraphQLResolveInfo } from "graphql";
 import { User, Item } from "./prisma-client";
 import { Context } from "../types";
 
+export namespace QueryResolvers {
+  export const defaultResolvers = {};
+
+  export type UsersResolver = (
+    parent: undefined,
+    args: {},
+    ctx: Context,
+    info: GraphQLResolveInfo
+  ) => User[] | Promise<User[]>;
+
+  export interface Type {
+    users: (
+      parent: undefined,
+      args: {},
+      ctx: Context,
+      info: GraphQLResolveInfo
+    ) => User[] | Promise<User[]>;
+  }
+}
+
 export namespace UserResolvers {
   export const defaultResolvers = {
     id: (parent: User) => parent.id,
     name: (parent: User) => parent.name,
+    email: (parent: User) => parent.email
   };
 
   export type IdResolver = (
     parent: User,
     args: {},
     ctx: Context,
-    info: GraphQLResolveInfo,
+    info: GraphQLResolveInfo
   ) => string | Promise<string>;
 
   export type NameResolver = (
     parent: User,
     args: {},
     ctx: Context,
-    info: GraphQLResolveInfo,
-  ) => string | null | Promise<string | null>;
+    info: GraphQLResolveInfo
+  ) => string | Promise<string>;
+
+  export type EmailResolver = (
+    parent: User,
+    args: {},
+    ctx: Context,
+    info: GraphQLResolveInfo
+  ) => string | Promise<string>;
 
   export interface Type {
     id: (
       parent: User,
       args: {},
       ctx: Context,
-      info: GraphQLResolveInfo,
+      info: GraphQLResolveInfo
     ) => string | Promise<string>;
 
     name: (
       parent: User,
       args: {},
       ctx: Context,
-      info: GraphQLResolveInfo,
-    ) => string | null | Promise<string | null>;
+      info: GraphQLResolveInfo
+    ) => string | Promise<string>;
+
+    email: (
+      parent: User,
+      args: {},
+      ctx: Context,
+      info: GraphQLResolveInfo
+    ) => string | Promise<string>;
+  }
+}
+
+export namespace MutationResolvers {
+  export const defaultResolvers = {};
+
+  export interface ArgsUpdateName {
+    id: string;
+    name: string;
+  }
+
+  export type UpdateNameResolver = (
+    parent: undefined,
+    args: ArgsUpdateName,
+    ctx: Context,
+    info: GraphQLResolveInfo
+  ) => User | Promise<User>;
+
+  export interface Type {
+    updateName: (
+      parent: undefined,
+      args: ArgsUpdateName,
+      ctx: Context,
+      info: GraphQLResolveInfo
+    ) => User | Promise<User>;
   }
 }
 
@@ -49,49 +109,49 @@ export namespace ItemResolvers {
     price: (parent: Item) => parent.price,
     image: (parent: Item) => (parent.image === undefined ? null : parent.image),
     largeImage: (parent: Item) =>
-      parent.largeImage === undefined ? null : parent.largeImage,
+      parent.largeImage === undefined ? null : parent.largeImage
   };
 
   export type IdResolver = (
     parent: Item,
     args: {},
     ctx: Context,
-    info: GraphQLResolveInfo,
+    info: GraphQLResolveInfo
   ) => string | Promise<string>;
 
   export type TitleResolver = (
     parent: Item,
     args: {},
     ctx: Context,
-    info: GraphQLResolveInfo,
+    info: GraphQLResolveInfo
   ) => string | Promise<string>;
 
   export type DescriptionResolver = (
     parent: Item,
     args: {},
     ctx: Context,
-    info: GraphQLResolveInfo,
+    info: GraphQLResolveInfo
   ) => string | Promise<string>;
 
   export type PriceResolver = (
     parent: Item,
     args: {},
     ctx: Context,
-    info: GraphQLResolveInfo,
+    info: GraphQLResolveInfo
   ) => number | Promise<number>;
 
   export type ImageResolver = (
     parent: Item,
     args: {},
     ctx: Context,
-    info: GraphQLResolveInfo,
+    info: GraphQLResolveInfo
   ) => string | null | Promise<string | null>;
 
   export type LargeImageResolver = (
     parent: Item,
     args: {},
     ctx: Context,
-    info: GraphQLResolveInfo,
+    info: GraphQLResolveInfo
   ) => string | null | Promise<string | null>;
 
   export interface Type {
@@ -99,47 +159,49 @@ export namespace ItemResolvers {
       parent: Item,
       args: {},
       ctx: Context,
-      info: GraphQLResolveInfo,
+      info: GraphQLResolveInfo
     ) => string | Promise<string>;
 
     title: (
       parent: Item,
       args: {},
       ctx: Context,
-      info: GraphQLResolveInfo,
+      info: GraphQLResolveInfo
     ) => string | Promise<string>;
 
     description: (
       parent: Item,
       args: {},
       ctx: Context,
-      info: GraphQLResolveInfo,
+      info: GraphQLResolveInfo
     ) => string | Promise<string>;
 
     price: (
       parent: Item,
       args: {},
       ctx: Context,
-      info: GraphQLResolveInfo,
+      info: GraphQLResolveInfo
     ) => number | Promise<number>;
 
     image: (
       parent: Item,
       args: {},
       ctx: Context,
-      info: GraphQLResolveInfo,
+      info: GraphQLResolveInfo
     ) => string | null | Promise<string | null>;
 
     largeImage: (
       parent: Item,
       args: {},
       ctx: Context,
-      info: GraphQLResolveInfo,
+      info: GraphQLResolveInfo
     ) => string | null | Promise<string | null>;
   }
 }
 
 export interface Resolvers {
+  Query: QueryResolvers.Type;
   User: UserResolvers.Type;
+  Mutation: MutationResolvers.Type;
   Item: ItemResolvers.Type;
 }

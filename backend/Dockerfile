@@ -11,9 +11,8 @@ RUN npm i npm@latest -g
 WORKDIR /opt
 COPY package.json package-lock.json* ./
 RUN npm install --no-optional && npm cache clean --force
-ENV PATH /opt/node_modules/.bin:$PATH
 
 WORKDIR /opt
 COPY . /opt
 
-CMD ["npm", "run", "debug"]
+CMD ["npm", "run", "start"]

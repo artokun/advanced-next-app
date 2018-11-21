@@ -7,6 +7,5 @@
     "strict": true,
     "lib": ["esnext", "dom", "es6", "es2017"],
     "moduleResolution": "node"
-  },
-  "include": ["./src/**/*.ts"]
+  }
 }
