@@ -1,8 +1,7 @@
-export const Mutation = {
-  createItem(parent, args, context) {
-    // TODO: Check if authed
+import { MutationResolvers } from '../generated/graphqlgen'
 
-    // return context.prisma.createItem({ data: { ...args } })
-    return [{ title: 'joe' }]
+export const Mutation: MutationResolvers.Type = {
+  createItem: (parent, args, ctx) => {
+    return ctx.db.createPost({ ...args })
   }
 }

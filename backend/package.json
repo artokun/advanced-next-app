@@ -6,8 +6,9 @@
     "start": "nodemon -e ts,graphql -x ts-node src/index.ts",
     "debug": "nodemon -e ts,graphql -x ts-node src/index.ts --inspect",
     "test": "jest",
-    "playground": "graphql playground --dotenv .env",
+    "generate": "graphqlgen",
     "deploy": "prisma deploy",
+    "playground": "graphql playground --dotenv .env",
     "dev": "npm-run-all --parallel debug playground"
   },
   "dependencies": {

@@ -1,8 +1,5 @@
-export const Query = {
-  items(parent, args, ctx) {
-    // const items = await ctx.prisma.items()
-    const items = [{ id: 1, title: 'tjos' }]
+import { QueryResolvers } from '../generated/graphqlgen'
 
-    return items
-  }
+export const Query: QueryResolvers.Type = {
+  items: (parent, args, ctx) => ctx.db.items(),
 }

@@ -1,4 +1,4 @@
-# import * from "generated/prisma.graphql"
+scalar DateTime
 
 type Query {
   items: [Item]!
@@ -11,6 +11,8 @@ type Mutation {
     price: Int
     image: String
     largeImage: String
+    createdAt: DateTime
+    updatedAt: DateTime
   ): Item
 }
 
